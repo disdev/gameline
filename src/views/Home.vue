@@ -33,7 +33,7 @@ export default class Home extends Vue {
   @Action('loadTeams') private loadTeams: any;
 
   get currentDate() {
-    return moment(this.currentScheduleDate, "YYYY-MM-DD").format("dddd, MMMM Do")
+    return moment(this.currentScheduleDate, 'YYYY-MM-DD').format('dddd, MMMM Do');
   }
 
   private mounted() {

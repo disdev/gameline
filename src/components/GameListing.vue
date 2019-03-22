@@ -19,7 +19,8 @@
       </b-row>
       <b-row>
         <b-col class="text-center font-italic">
-          <b-link v-if="game.status.statusCode === 'I' || game.status.statusCode === 'F'">{{ gameByline }}</b-link>
+          <b-link v-if="game.status.statusCode === 'I' || game.status.statusCode === 'F'"
+            :to="{ name: 'game', params: { id: game.gamePk }}">{{ gameByline }}</b-link>
           <span v-if="game.status.statusCode === 'S' || game.status.statusCode === 'P'">{{ gameByline }}</span>
         </b-col>
       </b-row>
@@ -39,7 +40,6 @@ export default class GameListing extends Vue {
   @Getter('getTeamById') private getTeamById: any;
 
   get gameByline() {
-    console.log(this.game.status);
     if (this.game.status.statusCode === 'P' || this.game.status.statusCode === 'S') {
       return moment(this.game.gameDate).format('LT');
     } else if (this.game.statusCode === 'F') {
@@ -47,11 +47,6 @@ export default class GameListing extends Vue {
     } else {
       return `${this.game.linescore.inningState} ${this.game.linescore.currentInningOrdinal}`;
     }
-  }
-
-  private mounted() {
-    // this.homeTeam = this.getTeamById(this.game.teams.home.team.id);
-    // this.awayTeam = this.getTeamById(this.game.teams.away.team.id);
   }
 }
 </script>

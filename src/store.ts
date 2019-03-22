@@ -21,7 +21,7 @@ export default new Vuex.Store({
     setTeams(state, getTeamsResponse) {
       state.teams = getTeamsResponse;
     },
-    setGameLivefeed(state, getGameLivefeedResult) {
+    setGameLiveFeed(state, getGameLivefeedResult) {
       state.gameLiveFeed = getGameLivefeedResult;
     },
     setGameBoxscore(state, getGameBoxscoreResult) {
@@ -49,20 +49,20 @@ export default new Vuex.Store({
           commit('setTeams', response.data.teams);
         });
     },
-    loadGameLiveFeed({ commit }, { gamePk }) {
+    loadGameLiveFeed({ commit }, gamePk) {
       axios.get(`https://statsapi.mlb.com/api/v1.1/game/${gamePk}/feed/live`)
         .then((response: any) => {
           commit('setGameLiveFeed', response.data.gameData);
-          commit('setLastUpdateTimestampLiveFeed', response.data.metadata.timeStamp);
+          commit('setLastUpdateTimestampLiveFeed', response.data.metaData.timeStamp);
         });
     },
-    loadGameBoxscore({ commit }, { gamePk }) {
+    loadGameBoxscore({ commit }, gamePk) {
       axios.get(`https://statsapi.mlb.com/api/v1.1/game/${gamePk}/boxscore`)
         .then((response: any) => {
           commit('setGameBoxscore', response.data);
         });
     },
-    loadGameLinescore({ commit }, { gamePk }) {
+    loadGameLinescore({ commit }, gamePk) {
       axios.get(`https://statsapi.mlb.com/api/v1.1/game/${gamePk}/linescore`)
         .then((response: any) => {
           commit('setGameLinescore', response.data);

@@ -12,6 +12,7 @@ export default new Vuex.Store({
     gameBoxscore: [],
     gameLinescore: [],
     lastUpdateTimestampLiveFeed: '',
+    currentScheduleDate: null,
   },
   mutations: {
     setGames(state, getGamesResponse) {
@@ -29,12 +30,17 @@ export default new Vuex.Store({
     setLastUpdateTimestampLiveFeed(state, lastUpdate) {
       state.lastUpdateTimestampLiveFeed = lastUpdate;
     },
+    setCurrentScheduleDate(state, currentDate) {
+      state.currentScheduleDate = currentDate;
+    },
   },
   actions: {
     loadGames({ commit }) {
-      axios.get(`https://statsapi.mlb.com/api/v1/schedule?sportId=1`)
+      // tslint:disable-next-line:max-line-length
+      axios.get(`https://statsapi.mlb.com/api/v1/schedule?sportId=1&sortBy=gameDate&hydrate=game(content(summary,media(epg))),linescore(runners),flags,team,review`)
         .then((response: any) => {
           commit('setGames', response.data.dates[0].games);
+          commit('setCurrentScheduleDate', response.data.dates[0].date);
         });
     },
     loadTeams({ commit }) {

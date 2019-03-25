@@ -52,7 +52,7 @@ export default new Vuex.Store({
     loadGameLiveFeed({ commit }, gamePk) {
       axios.get(`https://statsapi.mlb.com/api/v1.1/game/${gamePk}/feed/live`)
         .then((response: any) => {
-          commit('setGameLiveFeed', response.data.gameData);
+          commit('setGameLiveFeed', response.data);
           commit('setLastUpdateTimestampLiveFeed', response.data.metaData.timeStamp);
         });
     },

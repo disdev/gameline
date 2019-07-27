@@ -1,6 +1,6 @@
 <template>
   <b-card v-if="linescore">
-    <b-table hover :items="linescoreData" :fields="linescoreFields" class="text-center" />
+    <b-table id="linescore-table" hover :items="linescoreData" :fields="linescoreFields" class="text-center" />
   </b-card>
 </template>
 
@@ -43,7 +43,7 @@ export default class Linescore extends Vue {
       key: 'errors',
       label: 'Errors',
     });
-console.log(output);
+    
     return output;
   }
 
@@ -72,6 +72,10 @@ console.log(output);
     output.push(homeRow);
     
     return output;
+  }
+
+  private created() {
+    
   }
 }
 </script>
